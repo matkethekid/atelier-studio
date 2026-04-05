@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import Testimonials from "@/components/Testimonials";
 
 const Features = dynamic(() => import("@/components/Features"), {
   ssr: true
@@ -14,7 +15,7 @@ export default function Home() {
       <Navbar/>
       <main className="relative mt-5 w-full lg:w-[80%] h-screen lg:h-screen lg:max-h-200 mx-auto flex justify-center items-start pt-10 pb-10">
         <div className="flex flex-col gap-5 h-[80%] justify-start items-center text-center">
-          <div className="rounded-full pt-2 pb-2 pl-10 pr-10 max-w-50 bg-[#FFB29E]/41 flex gap-3 z-3"><span><Image src="/wavinghand.svg" alt="waving hand" width={70} height={70}/></span> Dobrodošli</div>
+          <div className="rounded-full pt-2 pb-2 pl-10 pr-10 max-w-50 bg-[#FFB29E]/41 flex justify-center items-center gap-3 z-3"><span><Image src="/wavinghand.svg" alt="waving hand" width={19} height={19}/></span> Dobrodošli</div>
           <div className="flex flex-col gap-10 z-2 w-full text-center justify-center items-center">
             <div className="flex flex-col gap-7 text-center z-2">
               <div className="absolute inset-0 w-[80%] mx-auto h-[50%] bg-grid-pattern z-1 opacity-[0.3] rounded-full"></div>
@@ -29,6 +30,7 @@ export default function Home() {
         </div>
       </main>
       <Features/>
+      <Testimonials/>
     </div>
   );
 }
