@@ -27,7 +27,7 @@ const Navbar = () => {
     }, [isSidebarOpen]);
   return (
     <>
-        <nav className="w-[90%] sticky top-5 backdrop-blur-xl lg:max-w-300 lg:w-[60%] h-20 rounded-full pl-5 pr-5 lg:pl-20 lg:pr-15 mx-auto bg-white/65 z-20 flex text-center justify-between items-center">
+        <nav className="w-[90%] sticky top-5 backdrop-blur-md lg:max-w-300 lg:w-[60%] h-20 rounded-full pl-5 pr-5 lg:pl-20 lg:pr-15 mx-auto bg-white/65 z-20 flex text-center justify-between items-center">
             <Link href={"/"} className={`${newsReader.className} text-xl flex z-100`}>Atelier Studio</Link>
             <ul className="hidden lg:flex flex-row gap-5">
                 <li><Link href={"/"}>Početna</Link></li>
