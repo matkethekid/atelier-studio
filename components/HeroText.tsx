@@ -39,7 +39,7 @@ const HeroText = () => {
             <Image src={content[lang].flag} alt={content[lang].text} width={70} height={70}/>
         </span>
         <br/>
-        {" "}i počni sa časovima danas
+        {" "}počni sa časovima danas
     </h1>
   )
 }
