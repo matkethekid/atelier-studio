@@ -2,13 +2,7 @@
 "use client";
 
 import Image from "next/image";
-import { Prata } from "next/font/google";
 import { useState, useEffect } from "react";
-
-const prata = Prata({
-  weight: ["400"],
-  subsets: ["latin"]
-});
 
 const content: any = {
     it: {
@@ -32,7 +26,7 @@ const HeroText = () => {
         return () => clearInterval(interval);
     }, []);
   return (
-    <h1 className={`text-5xl md:text-6xl ${prata.className}`}>
+    <h1 className={`text-5xl md:text-6xl`}>
         Nauči{" "}
         <span key={lang} className="inline-flex items-center gap-2 transition-opacity duration-500 animate-fade lg:w-87.5">
             {content[lang].text}
