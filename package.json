@@ -15,6 +15,8 @@
     "next": "16.2.2",
     "radix-ui": "^1.4.3",
     "react": "19.2.4",
+    "react-apple-emojis": "^3.0.0",
+    "react-country-flag": "^3.1.0",
     "react-dom": "19.2.4",
     "shadcn": "^4.1.2",
     "tailwind-merge": "^3.5.0",
