@@ -9,8 +9,8 @@ const newsReader = Newsreader({
 
 const Features = () => {
   return (
-    <section className='lg:max-h-225 mx-auto w-full lg:h-[80vh] bg-[#F5F4E8] p-7 lg:p-15 flex flex-col gap-20 justify-between'>
-        <div className="w-full lg:h-[90%] lg:max-w-600 mx-auto flex flex-col justify-between gap-10 lg:gap-0">
+    <section className='lg:max-h-225 mx-auto w-full 2xl:h-[80vh] bg-[#F5F4E8] p-7 lg:p-15 flex flex-col gap-20 justify-between'>
+        <div className="w-full lg:h-[90%] lg:max-w-470 mx-auto flex flex-col gap-20">
             <div className="lg:max-w-625 flex flex-row justify-between">
                 <div className="flex flex-col gap-5">
                     <h2 className="text-5xl"><span className={`${newsReader.className}`}>Osetite jezik,</span> nemojte ga samo učiti</h2>
@@ -18,7 +18,7 @@ const Features = () => {
                 </div>
                 <p className={`text-[5.2rem] hidden lg:flex z-1 opacity-[0.2] ${newsReader.className}`}>Atelier</p>
             </div>
-            <div className="lg:max-w-450 mx-auto w-full flex flex-wrap gap-5 justify-between lg:pl-40 lg:pr-40">
+            <div className="lg:max-w-450 mx-auto w-full flex flex-wrap gap-5 2xl:justify-between 2xl:pl-20 2xl:pr-20">
                 <div className="bg-white w-100 h-100 rounded-3xl flex flex-col gap-5 pl-10 pr-10 pt-5 pb-5 lg:p-10">
                     <div className="w-20 h-20 bg-[#E07A5F]/20 rounded-2xl flex justify-center items-center font-light">
                         <Image src="/personicon.svg" alt="person icon" width={30} height={30}/>

@@ -18,7 +18,8 @@ interface Review {
 const newsReader = Newsreader({
     weight: ["500"],
     subsets: ["latin"],
-    style: "italic"
+    style: "italic",
+    display: 'swap'
 });
 
 const reviews: Review[] = [
@@ -57,7 +58,7 @@ const reviews: Review[] = [
 const Testimonials = () => {
     const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   return (
-    <section className='w-full  flex flex-col justify-between p-10 text-center'>
+    <section className='w-full lg:max-w-500 mx-auto lg:max-h-200 lg:h-[80vh] flex flex-col justify-between p-10 text-center'>
         <div className="flex flex-col gap-5">
             <h3 className={`${newsReader.className} text-5xl`}>Utisci prethodnih Polaznika</h3>
             <p>Reč onih koji sa nama uče: naših filologa, svetskih putnika i sanjara.</p>
@@ -71,7 +72,8 @@ const Testimonials = () => {
             breakpoints={{
                 640: { slidesPerView: 1 },
                 768: { slidesPerView: 2 },
-                1024: { slidesPerView: 4 },
+                1024: { slidesPerView: 3 },
+                1300: { slidesPerView: 4 },
             }}
             onSwiper={(swiper) => setSwiperInstance(swiper)}
             >
