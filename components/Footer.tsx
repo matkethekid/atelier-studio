@@ -10,7 +10,7 @@ const newsReader = Newsreader({
 
 const Footer = () => {
   return (
-    <footer className='w-full lg:h-[40vh] flex flex-col lg:flex-row gap-10 lg:gap-0 lg:justify-between bg-[#F5F4E8] mt-10 p-10'>
+    <footer className='w-full lg:max-w-500 mx-auto lg:h-[30vh] flex flex-col lg:flex-row gap-10 lg:gap-0 lg:justify-between bg-[#F5F4E8] mt-10 p-10'>
         <div className='flex flex-col gap-5'>
             <h5 className={`${newsReader.className} text-4xl opacity-[0.5]`}>Atalier Studio</h5>
             <p className="text-[#55423E] max-w-125">Jedinstveni jezički studio koji slavi evropsku kulturu spajajući ljubav prema jeziku sa modernim pristupom učenju.</p>
