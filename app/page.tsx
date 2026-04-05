@@ -32,7 +32,7 @@ export default function Home() {
             </div>
             <Link href={"/kontakt"} className={`pt-2 pb-2 pl-10 pr-10 z-2 flex items-center justify-center gap-3 mx-auto text-center rounded-full bg-[#E07A5F] text-white`}><Image src="/writinghand.svg" alt="writing hand" width={20} height={20}/> Zakaži čas</Link>
           </div>
-          <div className="absolute bottom-0 w-full h-75 sm:h-100 lg:h-95">
+          <div className="absolute bottom-0 w-full h-[25vh] sm:h-[30vh] lg:h-[35vh]">
             <Image
               src="/semicircle.svg"
               alt="semi circle"
