@@ -32,7 +32,14 @@ export default function Home() {
             </div>
             <Link href={"/kontakt"} className={`pt-2 pb-2 pl-10 pr-10 z-2 flex items-center justify-center gap-3 mx-auto text-center rounded-full bg-[#E07A5F] text-white`}><Image src="/writinghand.svg" alt="writing hand" width={20} height={20}/> Zakaži čas</Link>
           </div>
-          <Image src="/semicircle.svg" alt="semi circle" width={700} height={700} className="absolute bottom-0"/>
+          <div className="absolute bottom-0 w-full h-75 sm:h-100 lg:h-95">
+            <Image
+              src="/semicircle.svg"
+              alt="semi circle"
+              fill
+              className="object-cover lg:object-contain"
+            />
+          </div>
         </div>
       </main>
       <Features/>
