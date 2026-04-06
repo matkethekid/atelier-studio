@@ -33,16 +33,16 @@ const Navbar = () => {
             <ul className="hidden lg:flex flex-row gap-5">
                 <li><Link href={"/"}>Početna</Link></li>
                 <li><Link href={"/onama"}>O nama</Link></li>
-                <li><Link href={"/"}>Kontakt</Link></li>
+                <li><Link href={"/kontakt"}>Kontakt</Link></li>
             </ul>
             <Link href={"/kontakt"} className={`hidden lg:block pt-2 pb-2 pl-7 pr-7 rounded-full bg-[#E07A5F] text-white`}>Počni odmah</Link>
-            <button onClick={() => setIsSidebarOpen(prevState => !prevState)} className="lg:hidden flex z-100">{isSidebarOpen ? <X/> : <Menu/>}</button>
+            <button aria-label="Otvori meni" onClick={() => setIsSidebarOpen(prevState => !prevState)} className="lg:hidden flex z-100">{isSidebarOpen ? <X/> : <Menu/>}</button>
         </nav>
         <div className={`w-full h-full p-10 z-20 bg-white  ${isSidebarOpen ? "flex flex-col gap-10 z-30" : "hidden"}`}>
             <ul className="lg:hidden flex flex-col justify-center items-center w-full gap-5 text-black">
                 <li><Link href={"/"} className={`text-xl`}>Početna</Link></li>
                 <li><Link href={"/onama"} className={`text-xl`}>O nama</Link></li>
-                <li><Link href={"/"} className={`text-xl`}>Kontakt</Link></li>
+                <li><Link href={"/kontakt"} className={`text-xl`}>Kontakt</Link></li>
             </ul>
             <Link href={"/kontakt"} className={`lg:hidden pt-2 pb-2 w-[80%] mx-auto text-center rounded-full bg-[#E07A5F] text-white`}>Počni odmah</Link>
         </div>
