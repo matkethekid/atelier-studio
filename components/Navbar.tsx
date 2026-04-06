@@ -37,7 +37,7 @@ const Navbar = () => {
             <Link href={"/kontakt"} className={`hidden lg:block pt-2 pb-2 pl-7 pr-7 rounded-full bg-[#E07A5F] text-white`}>Počni odmah</Link>
             <button onClick={() => setIsSidebarOpen(prevState => !prevState)} className="lg:hidden flex z-100">{isSidebarOpen ? <X/> : <Menu/>}</button>
         </nav>
-        <div className={`w-full h-full p-10 z-20 bg-white  ${isSidebarOpen ? "flex flex-col gap-10" : "hidden"}`}>
+        <div className={`w-full h-full p-10 z-20 bg-white  ${isSidebarOpen ? "flex flex-col gap-10 z-30" : "hidden"}`}>
             <ul className="lg:hidden flex flex-col justify-center items-center w-full gap-5 text-black">
                 <li><Link href={"/"} className={`text-xl`}>Početna</Link></li>
                 <li><Link href={"/onama"} className={`text-xl`}>O nama</Link></li>
