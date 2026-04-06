@@ -4,7 +4,8 @@ import Image from "next/image";
 const newsReader = Newsreader({
     weight: ["500"],
     subsets: ["latin"],
-    style: "italic"
+    style: "italic",
+    display: "swap"
 });
 
 const Features = () => {
@@ -28,7 +29,7 @@ const Features = () => {
                         <p>Bilo da se pripremaš za selidbu u Milano ili planiraš leto u Provansi, mi prilagođavamo svaki glagol i svaki vokal tvom ličnom putovanju.</p>
                     </div>
                     <div>
-                        <Image src="/wine.svg" alt="wine glass" width={40} height={40}/>
+                        <Image src="/wine.svg" alt="wine glass" width={40} height={40} quality={80}/>
                     </div>
                 </div>
                 <div className="bg-white w-100 h-100 rounded-3xl flex flex-col gap-5 pl-10 pr-10 pt-5 pb-5 lg:p-10">
@@ -40,7 +41,7 @@ const Features = () => {
                         <p>Učite jezik kroz film, književnost i umetnost. Mi vas ne učimo samo gramatici – mi vam otkrivamo samu dušu i filozofiju podneblja.</p>
                     </div>
                     <div>
-                        <Image src="/artmask.svg" alt="art mask" width={40} height={40}/>
+                        <Image src="/artmask.svg" alt="art mask" width={40} height={40} quality={80}/>
                     </div>
                 </div>
                 <div className="bg-white w-100 h-100 rounded-3xl flex flex-col gap-5 pl-10 pr-10 pt-5 pb-5 lg:p-10">
@@ -52,7 +53,7 @@ const Features = () => {
                         <p>Individualni pristup bez obzira na to gde se nalazite. Naši živi 1-na-1 časovi dostupni su u svim vremenskim zonama, pružajući vam potpunu slobodu u planiranju.</p>
                     </div>
                     <div>
-                        <Image src="/clock.svg" alt="wine glass" width={40} height={40}/>
+                        <Image src="/clock.svg" alt="wine glass" width={40} height={40} quality={80}/>
                     </div>
                 </div>
             </div>

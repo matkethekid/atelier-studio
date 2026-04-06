@@ -8,7 +8,8 @@ import { Menu, X } from "lucide-react";
 const newsReader = Newsreader({
     weight: ["500"],
     subsets: ["latin"],
-    style: "italic"
+    style: "italic",
+    display: "swap"
 });
 
 const Navbar = () => {

@@ -30,7 +30,7 @@ const HeroText = () => {
         Nauči{" "}
         <span key={lang} className="inline-flex items-center gap-2 transition-opacity duration-500 animate-fade lg:w-87.5">
             {content[lang].text}
-            <Image src={content[lang].flag} alt={content[lang].text} width={70} height={70}/>
+            <Image src={content[lang].flag} alt={content[lang].text} width={70} height={70} quality={80}/>
         </span>
         <br/>
         {" "}počni sa časovima danas

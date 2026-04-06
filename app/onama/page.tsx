@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import { Newsreader } from 'next/font/google';
 import Navbar from '@/components/Navbar';
-import Prefooter from '@/components/Prefooter';
-import Footer from '@/components/Footer';
 import Teachers from '@/components/Teachers';
+import dynamic from 'next/dynamic';
 
 const newsReader = Newsreader({
     weight: ["500"],
@@ -29,6 +28,13 @@ const teachers: Teacher[] = [
         languages: ["Italijanski", "Francuski"]
     },
 ];
+
+const Prefooter = dynamic(() => import('@/components/Prefooter'), {
+    ssr: true
+});
+const Footer = dynamic(() => import('@/components/Footer'), {
+    ssr: true
+});
 
 const page = () => {
   return (

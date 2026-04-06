@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const newsReader = Newsreader({
-    weight: ["500"],
-    subsets: ["latin"],
-    style: "italic"
+  weight: ["500"],
+  subsets: ["latin"],
+  style: "italic",
+  display: "swap"
 });
 
 const Prefooter = () => {
