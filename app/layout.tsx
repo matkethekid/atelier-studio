@@ -19,7 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="sr" className={`${prata.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <main>
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
