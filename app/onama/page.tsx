@@ -42,7 +42,7 @@ const page = () => {
         <Navbar/>
         <div className='w-full h-[35vh] bg-white relative flex justify-center items-center text-center mt-5'>
             <div className='w-full h-full bg-black opacity-[0.5] absolute inset-0 z-1'></div>
-            <Image src="/renesansa.jpg" alt='renesansa image' fill className='object-cover absolute inset-0'/>
+            <Image src="/renesansa.avif" alt='renesansa image' fill className='object-cover absolute inset-0' priority sizes='100vw'/>
             <h1 className='flex flex-col sm:flex-row items-center md:items-start gap-3 z-2 text-white text-2xl sm:text-3xl lg:text-4xl'>I MAESTRI DELLA FILOLOGIA <Image src="/building.svg" alt='building' width={30} height={30}/></h1>
         </div>
         <div className='w-full h-full flex flex-col gap-10 lg:flex-row justify-between items-start pt-10 pb-10 pl-5 pr-5 lg:p-20'>
