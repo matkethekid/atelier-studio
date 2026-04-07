@@ -22,38 +22,38 @@ const Features = () => {
             <div className="lg:max-w-450 mx-auto w-full flex flex-wrap gap-5 2xl:justify-between 2xl:pl-20 2xl:pr-20">
                 <div className="bg-white w-100 h-100 rounded-3xl flex flex-col gap-5 pl-10 pr-10 pt-5 pb-5 lg:p-10">
                     <div className="w-20 h-20 bg-[#E07A5F]/20 rounded-2xl flex justify-center items-center font-light">
-                        <Image src="/personicon.svg" alt="person icon" width={30} height={30}/>
+                        <Image src="/personicon.svg" alt="person icon" width={30} height={30} loading="lazy"/>
                     </div>
                     <div className="flex flex-col gap-3">
                         <p className={`${newsReader.className} text-3xl`}>Programi po tvojoj meri</p>
                         <p>Bilo da se pripremaš za selidbu u Milano ili planiraš leto u Provansi, mi prilagođavamo svaki glagol i svaki vokal tvom ličnom putovanju.</p>
                     </div>
                     <div>
-                        <Image src="/wine.svg" alt="wine glass" width={40} height={40} quality={80}/>
+                        <Image src="/wine.svg" alt="wine glass" width={40} height={40} quality={80} loading="lazy"/>
                     </div>
                 </div>
                 <div className="bg-white w-100 h-100 rounded-3xl flex flex-col gap-5 pl-10 pr-10 pt-5 pb-5 lg:p-10">
                     <div className="w-20 h-20 bg-[#E07A5F]/20 rounded-2xl flex justify-center items-center font-light">
-                        <Image src="/notebook.svg" alt="person icon" width={30} height={30}/>
+                        <Image src="/notebook.svg" alt="person icon" width={30} height={30} loading="lazy"/>
                     </div>
                     <div className="flex flex-col gap-3">
                         <p className={`${newsReader.className} text-3xl`}>Kulturološko povezivanje</p>
                         <p>Učite jezik kroz film, književnost i umetnost. Mi vas ne učimo samo gramatici – mi vam otkrivamo samu dušu i filozofiju podneblja.</p>
                     </div>
                     <div>
-                        <Image src="/artmask.svg" alt="art mask" width={40} height={40} quality={80}/>
+                        <Image src="/artmask.svg" alt="art mask" width={40} height={40} quality={80} loading="lazy"/>
                     </div>
                 </div>
                 <div className="bg-white w-100 h-100 rounded-3xl flex flex-col gap-5 pl-10 pr-10 pt-5 pb-5 lg:p-10">
                     <div className="w-20 h-20 bg-[#E07A5F]/20 rounded-2xl flex justify-center items-center font-light">
-                        <Image src="/clockicon.svg" alt="old clock" width={30} height={30}/>
+                        <Image src="/clockicon.svg" alt="old clock" width={30} height={30} loading="lazy"/>
                     </div>
                     <div className="flex flex-col gap-3">
                         <p className={`${newsReader.className} text-3xl`}>Fleksibilni termini</p>
                         <p>Individualni pristup bez obzira na to gde se nalazite. Naši živi 1-na-1 časovi dostupni su u svim vremenskim zonama, pružajući vam potpunu slobodu u planiranju.</p>
                     </div>
                     <div>
-                        <Image src="/clock.svg" alt="wine glass" width={40} height={40} quality={80}/>
+                        <Image src="/clock.svg" alt="wine glass" width={40} height={40} quality={80} loading="lazy"/>
                     </div>
                 </div>
             </div>

@@ -53,11 +53,11 @@ const Teachers = ({ teachers }: Props) => {
                             <SwiperSlide key={index}>
                                 <div className="bg-white rounded-3xl pt-5 pb-5 pl-10 pr-10 flex flex-col gap-5 text-center">
                                     <div className="w-17.5 h-17.5 rounded-full flex flex-col justify-center items-center mx-auto">
-                                        <Image src={teacher.image} alt={teacher.name} width={70} height={70}/>
+                                        <Image src={teacher.image} alt={teacher.name} width={70} height={70} loading="lazy"/>
                                     </div>
                                     <div className="flex flex-col gap-5">
                                         <p className={`${newsReader.className} text-2xl`}>{teacher.name}</p>
-                                        <p className="flex gap-4 justify-center"><Image src="/location.svg" alt="location pin" width={20} height={20}/> {teacher.location}</p>
+                                        <p className="flex gap-4 justify-center"><Image src="/location.svg" alt="location pin" width={20} height={20} loading="lazy"/> {teacher.location}</p>
                                         <div className="flex flex-wrap w-full justify-center items-center gap-5">
                                             {
                                                 teacher.languages.map((lang: string, index: number) => (
