@@ -56,10 +56,10 @@ const page = () => {
             <div className='w-full lg:w-125 h-72.5 border-5 border-l-[#9A442D] bg-white rounded-3xl flex flex-col gap-3 pt-7 pb-7 pl-10 pr-10'>
                 <h3 className={`${newsReader.className} text-3xl`}>Naša misija</h3>
                 <p className='text-[15px] text-[#55423E]'>Negujemo otmenost izraza i intelektualnu radoznalost bez granica. Jezik nije samo alat za sporazumevanje, već živa nit koja nas povezuje sa istorijom, umetnošću i dušom evropskog podneblja.</p>
-                <Image src="/oldnote.svg" alt='building' width={30} height={30}/>
+                <Image src="/oldnote.svg" alt='building' width={30} height={30} loading='lazy'/>
             </div>
         </div>
-        <div className='bg-[#F5F4E8] w-full lg:h-[70vh] flex flex-col gap-25 p-10 text-center '>
+        <div className='bg-[#F5F4E8] w- 2xl:max-h-150 2xl:h-[70vh] flex flex-col gap-25 p-10 text-center '>
             <div className='flex flex-col gap-5'>
                 <p className='text-sm text-[#9A442D]'>PREDAVAČI</p>
                 <h4 className={`${newsReader.className} text-5xl`}>Naši Filolozi</h4>
