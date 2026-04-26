@@ -53,7 +53,7 @@ const page = () => {
                     <p className='flex gap-3 lg:max-w-150 text-[#55423E]'>Naš pristup se oslanja na humanističku tradiciju renesanse: učenje kroz umetnost, dijalog i čulno prožimanje sa jezikom. Mi ne prenosimo samo reči, već samu dušu kulture.</p>
                 </div>
             </div>
-            <div className='w-full lg:w-125 h-72.5 border-5 border-l-[#9A442D] bg-white rounded-3xl flex flex-col gap-3 pt-7 pb-7 pl-10 pr-10'>
+            <div className='w-full lg:w-125 lg:h-72.5 border-5 border-l-[#9A442D] bg-white rounded-3xl flex flex-col gap-3 pt-7 pb-7 pl-10 pr-10'>
                 <h3 className={`${newsReader.className} text-3xl`}>Naša misija</h3>
                 <p className='text-[15px] text-[#55423E]'>Negujemo otmenost izraza i intelektualnu radoznalost bez granica. Jezik nije samo alat za sporazumevanje, već živa nit koja nas povezuje sa istorijom, umetnošću i dušom evropskog podneblja.</p>
                 <Image src="/oldnote.svg" alt='building' width={30} height={30} loading='lazy'/>
