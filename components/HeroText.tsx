@@ -1,26 +1,27 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-const content: any = {
-    it: {
-        text: "italijanski",
-        flag: "/italy.svg"
-    },
-    fr: {
-        text: "francuski",
-        flag: "/french.svg"
-    }
+const content: Record<string, { text: string; flag: string }> = {
+    it: { text: "italijanski", flag: "/italy.svg" },
+    fr: { text: "francuski", flag: "/french.svg" },
+    sr: { text: "srpski", flag: "/serbian.svg" },
+    la: { text: "latinski", flag: "/vatican.svg" },
+    // gb: { text: "engleski", flag: "/uk.svg" },
+    // de: { text: "nemački", flag: "/germany.svg" }
 };
 
 const HeroText = () => {
     const [lang, setLang] = useState("it");
 
     useEffect(() => {
+        const languages = Object.keys(content);
         const interval = setInterval(() => {
-        setLang((prev) => (prev === "it" ? "fr" : "it"));
+            setLang((prev) => {
+                const currentIndex = languages.indexOf(prev);
+                return languages[(currentIndex + 1) % languages.length];
+            });
         }, 2500);
 
         return () => clearInterval(interval);

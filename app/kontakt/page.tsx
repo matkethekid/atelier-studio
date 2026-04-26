@@ -26,7 +26,7 @@ interface Language {
     icon: string;
 };
 
-const languages = [
+const languages: Language[] = [
     {
         id: 0,
         name: "Italijanski",
@@ -37,6 +37,16 @@ const languages = [
         name: "Francuski",
         icon: "/french.svg"
     },
+    {
+        id: 2,
+        name: "Srpski",
+        icon: "/serbian.svg"
+    },
+    {
+        id: 2,
+        name: "Latinski",
+        icon: "/vatican.svg"
+    }
 ];
 
 const page = () => {
