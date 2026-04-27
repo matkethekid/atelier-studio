@@ -5,6 +5,8 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import Testimonials from "@/components/Testimonials";
 import { AuroraBackground } from "@/components/ui/aurora-background";
+import { cacheLife, cacheTag } from "next/cache";
+import { Suspense } from "react";
 
 const Features = dynamic(() => import("@/components/Features"), {
   ssr: true
@@ -16,7 +18,18 @@ const Footer = dynamic(() => import("@/components/Footer"), {
   ssr: true
 });
 
-export default function Home() {
+export default async function Home() {
+  async function fetchReviews() {
+    "use cache";
+    cacheLife("minutes");
+    cacheTag("reviews");
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reviews`, {
+      method: "GET"
+    });
+    const data = await response.json();
+    return data;
+  };
+  const reviews = await fetchReviews();
   return (
     <div className="w-full min-h-screen flex flex-col pt-5 bg-zinc-50">
       <Navbar/>
@@ -46,7 +59,9 @@ export default function Home() {
         </section>
       </AuroraBackground>
       <Features/>
-      <Testimonials/>
+      <Suspense fallback={<div></div>}>
+        <Testimonials reviews={reviews}/>
+      </Suspense>
       <Prefooter/>
       <Footer/>
     </div>
