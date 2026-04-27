@@ -8,33 +8,39 @@ import { Textarea } from "./ui/textarea";
 import toast, { Toaster } from "react-hot-toast";
 
 const MakeReview = () => {
-    const router = useRouter();
-    const [name, setName] = useState<string>("");
-    const [review, setReview] = useState<string>("");
+  const router = useRouter();
+  const [name, setName] = useState<string>("");
+  const [review, setReview] = useState<string>("");
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async function handleSubmit(e: any) {
-        e.preventDefault();
-        if (name.length == 0 || review.length == 0) {
-            toast.error("Sva polja su obavezna");
-        }
-        try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/create`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    name,
-                    review,
-                }),
-            });
-            toast.error("Recenzija uspesno poslata");
-            router.push("/");
-        } catch (error) {
-            toast.error("Doslo je do greske.");
-        }
-    };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async function handleSubmit(e: any) {
+    e.preventDefault();
+    if (name.length == 0 || review.length == 0) {
+      toast.error("Sva polja su obavezna");
+    }
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reviews/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          ReviewText: review,
+        }),
+      });
+      const data = await res.json();
+      console.log(data)
+      if (data.success) {
+        toast.success(data.message);
+        setTimeout(() => {
+          router.push("/");
+        }, 2000);
+      }
+    } catch (error) {
+      toast.error("Doslo je do greske.");
+    }
+  };
   return (
     <div className="w-full h-[70vh] flex justify-center items-center ">
         <Toaster/>
