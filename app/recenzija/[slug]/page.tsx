@@ -25,9 +25,9 @@ async function DroneDataLoader({ params }: { params: Promise<{ slug: string }> }
 
 async function CachedDroneFetch({ slug }: { slug: string }) {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/reviews/check/${encodeURIComponent(slug)}`);
-  if (!response.ok) {
-    return <InvalidRedirect/>
-  }
+  // if (!response.ok) {
+  //   return <InvalidRedirect/>
+  // }
   
   return <MakeReview  />;
 }
