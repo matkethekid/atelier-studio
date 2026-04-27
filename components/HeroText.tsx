@@ -4,12 +4,12 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const content: Record<string, { text: string; flag: string }> = {
-    it: { text: "italijanski", flag: "/italy.svg" },
-    fr: { text: "francuski", flag: "/french.svg" },
-    sr: { text: "srpski", flag: "/serbian.svg" },
-    la: { text: "latinski", flag: "/vatican.svg" },
-    // gb: { text: "engleski", flag: "/uk.svg" },
-    // de: { text: "nemački", flag: "/germany.svg" }
+  it: { text: "italijanski", flag: "/italy.svg" },
+  fr: { text: "francuski", flag: "/french.svg" },
+  sr: { text: "srpski", flag: "/serbian.svg" },
+  la: { text: "latinski", flag: "/vatican.svg" },
+  gb: { text: "engleski", flag: "/uk.svg" },
+  // de: { text: "nemački", flag: "/germany.svg" }
 };
 
 const HeroText = () => {
