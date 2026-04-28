@@ -11,26 +11,26 @@ import "swiper/css/navigation";
 import { Newsreader } from "next/font/google";
 
 interface Teacher {
-    id: number;
-    name: string;
-    image: string;
-    location: string;
-    languages: string[];
+  id: number;
+  name: string;
+  profilePictureUrl: string;
+  location: string;
+  languages: string[];
 };
 
 interface Props {
-    teachers: Teacher[];
+  teachers: Teacher[];
 };
 
 const newsReader = Newsreader({
-    weight: ["500"],
-    subsets: ["latin"],
-    style: "italic",
-    display: 'swap'
+  weight: ["500"],
+  subsets: ["latin"],
+  style: "italic",
+  display: 'swap'
 });
 
 const Teachers = ({ teachers }: Props) => {
-    const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   return (
     <div className='w-full h-full flex flex-col gap-10'>
         <div>
@@ -53,7 +53,7 @@ const Teachers = ({ teachers }: Props) => {
                             <SwiperSlide key={index}>
                                 <div className="bg-white rounded-3xl pt-5 pb-5 pl-10 pr-10 flex flex-col gap-5 text-center">
                                     <div className="w-17.5 h-17.5 rounded-full flex flex-col justify-center items-center mx-auto">
-                                        <Image src={teacher.image} alt={teacher.name} width={70} height={70} loading="lazy"/>
+                                        <Image src={teacher.profilePictureUrl} alt={teacher.name} width={70} height={70} loading="lazy"/>
                                     </div>
                                     <div className="flex flex-col gap-5">
                                         <p className={`${newsReader.className} text-2xl`}>{teacher.name}</p>

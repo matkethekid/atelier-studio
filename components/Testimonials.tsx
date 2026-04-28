@@ -26,39 +26,6 @@ const newsReader = Newsreader({
   display: 'swap'
 });
 
-const reviews: Review[] = [
-  {
-      id: 0,
-      text: "Dunja je sjajan predavač, ne samo da zna francuski, nego sjajno priča i engleski, italijanski i latinski... Sve preporuke",
-      name: "Milica"
-  },
-  {
-      id: 1,
-      text: "Imala sam priliku da vidim koliko je Dunja posvećena i talentovana. Njeno strpljenje, jasna objašnjenja i sposobnost da se prilagodi učeniku čine je izuzetnim nastavnikom. Ne samo da odlično poznaje gradivo, već ume da ga prenese na način koji je zanimljiv i lako razumljiv.",
-      name: "Tamara"
-  },
-  {
-      id: 2,
-      text: "Detaljno priprema materijal koji vam je potreban za savladavanje gradiva. Velika preporuka za prof Dunju, nećete pogrešiti!",
-      name: "Petra"
-  },
-  {
-      id: 3,
-      text: "Detaljno priprema materijal koji vam je potreban za savladavanje gradiva. Velika preporuka za prof Dunju, nećete pogrešiti!",
-      name: "Petar"
-  },
-  {
-      id: 3,
-      text: "Detaljno priprema materijal koji vam je potreban za savladavanje gradiva. Velika preporuka za prof Dunju, nećete pogrešiti!",
-      name: "Petar"
-  },
-  {
-      id: 4,
-      text: "Detaljno priprema materijal koji vam je potreban za savladavanje gradiva. Velika preporuka za prof Dunju, nećete pogrešiti!",
-      name: "Petar"
-  },
-];
-
 const Testimonials = ({ reviews }: Props) => {
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   return (
