@@ -57,7 +57,7 @@ const page = async () => {
           <Image src="/oldnote.svg" alt='building' width={30} height={30} loading='lazy'/>
         </div>
       </div>
-      <div className='bg-[#F5F4E8] w- 2xl:max-h-150 2xl:h-[70vh] flex flex-col gap-25 p-10 text-center '>
+      <div className='bg-[#F5F4E8] flex flex-col gap-25 p-10 text-center '>
         <div className='flex flex-col gap-5'>
           <p className='text-sm text-[#9A442D]'>PREDAVAČI</p>
           <h4 className={`${newsReader.className} text-5xl`}>Naši Filolozi</h4>
