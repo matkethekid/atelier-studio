@@ -9,7 +9,6 @@ const content: Record<string, { text: string; flag: string }> = {
   sr: { text: "srpski", flag: "/serbian.svg" },
   la: { text: "latinski", flag: "/vatican.svg" },
   gb: { text: "engleski", flag: "/uk.svg" },
-  // de: { text: "nemački", flag: "/germany.svg" }
 };
 
 const HeroText = () => {
@@ -26,17 +25,23 @@ const HeroText = () => {
 
         return () => clearInterval(interval);
     }, []);
+
   return (
-    <h1 className={`text-5xl md:text-6xl`}>
-        Nauči{" "}
-        <span key={lang} className="inline-flex items-center gap-2 transition-opacity duration-500 animate-fade lg:w-87.5">
-            {content[lang].text}
-            <Image src={content[lang].flag} alt={content[lang].text} width={70} height={70} quality={80}/>
+    <h1 className="text-5xl md:text-6xl">
+        <span className="sr-only">
+          Nauči italijanski, francuski, engleski, srpski ili latinski jezik – počni sa časovima danas
         </span>
-        <br/>
-        {" "}počni sa časovima danas
+        <span aria-hidden="true">
+          Nauči{" "}
+          <span key={lang} className="inline-flex items-center gap-2 transition-opacity duration-500 animate-fade lg:w-87.5">
+              {content[lang].text}
+              <Image src={content[lang].flag} alt={content[lang].text} width={70} height={70} quality={80} priority />
+          </span>
+          <br/>
+          {" "}počni sa časovima danas
+        </span>
     </h1>
-  )
-}
+  );
+};
 
 export default HeroText;
