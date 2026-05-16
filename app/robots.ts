@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://atelier-studio-kohl-seven.vercel.app/sitemap.xml',
+    sitemap: 'https://atelierstudio.rs/sitemap.xml',
   }
 };
