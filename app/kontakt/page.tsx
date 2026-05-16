@@ -71,7 +71,7 @@ const page = () => {
                         </div>
                         <div className='flex flex-col'>
                             <p>Email</p>
-                            <p>stoev.dunja@gmail.com</p>
+                            <p>prof.dunjas@gmail.com</p>
                         </div>
                     </div>
                     <div className='flex flex-row gap-3'>
@@ -80,13 +80,13 @@ const page = () => {
                         </div>
                         <div className='flex flex-col'>
                             <p>Telefon</p>
-                            <p>063 384545</p>
+                            <p>063 8911642</p>
                         </div>
                     </div>
                     <div className='flex flex-col gap-3 mt-5'>
                         <p className='uppercase text-sm text-[#9A442D]'>zaprati nas</p>
                         <div className='flex flex-row'>
-                            <Link href={"https://instagram.com"}>
+                            <Link href={"https://www.instagram.com/studio_.atelier/"}>
                                 <div className='bg-[#9A442D]/20 rounded-xl p-3 text-white'>
                                     <Image src="/instagram.svg" alt='instagram icon' width={25} height={25} className='text-white'/>
                                 </div>
