@@ -4,29 +4,30 @@ import "./globals.css";
 
 const prata = Prata({
   weight: ["400"],
-  subsets: ["latin"]
+  subsets: ["latin"],
+  display: "swap"
 });
 
 export const metadata: Metadata = {
-  title: "Privatni časovi italijanskog i francuskog | Atelier Studio",
-  description: "Časovi italijanskog i francuskog jezika online. Individualni pristup, brzi rezultati i iskusni profesori. Prijavite se danas i unapredite svoje znanje jezika.",
+  title: "Privatni časovi stranih jezika | Atelier Studio (Grupni i Individualni)",
+  description: "Efikasni onlajn časovi francuskog, italijanskog, engleskog, srpskog i latinskog jezika. Izaberite grupne ili individualne časove uz Atelier Studio.",
   alternates: {
-    canonical: "https://atelier-studio-kohl-seven.vercel.app",
+    canonical: "https://atelierstudio.rs",
   },
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    title: "Privatni časovi italijanskog i francuskog | Atelier Studio",
-    description: "Učite italijanski i francuski uz stručne profesore. Individualni časovi i fleksibilni termini.",
-    url: "https://atelier-studio-kohl-seven.vercel.app",
+    title: "Privatni časovi stranih jezika | Atelier Studio",
+    description: "Učite francuski, italijanski, engleski, srpski i latinski uz stručne profesore. Individualni časovi i fleksibilni termini.",
+    url: "https://atelierstudio.rs",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Privatni časovi italijanskog i francuskog",
-    description: "Individualni časovi italijanskog i francuskog jezika online.",
+    title: "Privatni časovi stranih jezika",
+    description: "Učite francuski, italijanski, engleski, srpski i latinski uz stručne profesore. Individualni časovi i fleksibilni termini.",
   },
 };
 
