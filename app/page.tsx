@@ -59,7 +59,6 @@ export default async function Home() {
             </div> */}
           </div>
         </section>
-      </AuroraBackground>
       <Features/>
       <Suspense fallback={<div></div>}>
         <Testimonials reviews={reviews}/>
