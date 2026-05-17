@@ -33,7 +33,9 @@ export default async function Home() {
   return (
     <div className="w-full min-h-screen flex flex-col pt-5 bg-zinc-50">
       <Navbar/>
-      <AuroraBackground>
+      <div className="hidden lg:block">
+        <AuroraBackground>
+      </div>
         <section className="relative mt-5 w-full lg:w-[80%] h-screen lg:h-screen lg:max-h-200 mx-auto flex justify-center items-start pt-10 pb-10">
           <div className="flex flex-col gap-5 h-[80%] justify-start items-center text-center">
             <div className="rounded-full pt-2 pb-2 pl-10 pr-10 max-w-50 bg-[#FFB29E]/41 flex justify-center items-center gap-3 z-3"><span><Image src="/wavinghand.svg" alt="waving hand" width={19} height={19}/></span> Dobrodošli</div>
