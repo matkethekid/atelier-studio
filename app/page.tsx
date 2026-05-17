@@ -34,7 +34,7 @@ export default async function Home() {
     <div className="w-full min-h-screen flex flex-col pt-5 bg-zinc-50">
       <Navbar/>
       <div className="hidden lg:block">
-        <AuroraBackground>
+        <AuroraBackground/>
       </div>
         <section className="relative mt-5 w-full lg:w-[80%] h-screen lg:h-screen lg:max-h-200 mx-auto flex justify-center items-start pt-10 pb-10">
           <div className="flex flex-col gap-5 h-[80%] justify-start items-center text-center">
