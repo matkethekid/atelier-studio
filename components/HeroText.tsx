@@ -33,7 +33,7 @@ const HeroText = () => {
         </span>
         <span aria-hidden="true">
           Nauči{" "}
-          <span key={lang} className="inline-flex items-center gap-2 transition-opacity duration-500 animate-fade lg:w-87.5">
+            <span key={lang} className="inline-flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-start mt-2 sm:mt-0 transition-opacity duration-500 animate-fade">
               {content[lang].text}
               <Image src={content[lang].flag} alt={content[lang].text} width={70} height={70} quality={80} priority />
           </span>

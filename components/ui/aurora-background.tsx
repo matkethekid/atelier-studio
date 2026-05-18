@@ -55,6 +55,15 @@ const auroraStyles = `
     mix-blend-mode: difference;
     animation: auroraAfterShift 20s ease-in-out infinite;
   }
+  
+  @media (max-width: 768px) {
+    .aurora-layer,
+    .aurora-layer::after {
+      animation: none !important;
+      background-position: start !important;
+      opacity: 0.3;
+    }
+  }
 `;
 
 export const AuroraBackground = ({
@@ -66,7 +75,6 @@ export const AuroraBackground = ({
   return (
     <main>
       <style dangerouslySetInnerHTML={{ __html: auroraStyles }} />
-
       <div
         className={cn(
           "transition-bg relative flex w-full h-[65vh] flex-col items-center bg-zinc-50",
