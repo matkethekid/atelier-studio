@@ -77,7 +77,7 @@ export const AuroraBackground = ({
       <style dangerouslySetInnerHTML={{ __html: auroraStyles }} />
       <div
         className={cn(
-          "transition-bg relative flex w-full h-[65vh] flex-col items-center bg-zinc-50",
+          "transition-bg relative flex w-full lg:h-[65vh] flex-col items-center bg-zinc-50",
           className,
         )}
         {...props}
