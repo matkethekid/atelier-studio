@@ -19,7 +19,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t matejadev/atelier-studio-ui:latest .
+        run: docker build --build-arg NEXT_PUBLIC_BACKEND_URL="https://api.atelierstudio.rs" -t matejadev/atelier-studio-ui:latest .
 
       - name: Push Docker image
         run: docker push matejadev/atelier-studio-ui:latest
