@@ -38,6 +38,7 @@ const Navbar = () => {
             <ul className="hidden lg:flex flex-row gap-5">
                 <li><Link href={"/"}>Početna</Link></li>
                 <li><Link href={"/onama"}>O nama</Link></li>
+                <li><Link href={"/resursi"}>Resursi</Link></li>
                 <li><Link href={"/kontakt"}>Kontakt</Link></li>
             </ul>
             <Link href={"/kontakt"} className={`hidden lg:block pt-2 pb-2 pl-7 pr-7 rounded-full bg-[#E07A5F] text-white`}>Počni odmah</Link>
