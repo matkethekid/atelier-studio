@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Newsreader } from "next/font/google";
 import { Menu, X } from "lucide-react";
@@ -14,21 +14,26 @@ const newsReader = Newsreader({
 
 const Navbar = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+    const navRef = useRef<HTMLElement | null>(null);
 
     useEffect(() => {
         if (isSidebarOpen) {
-        document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden';
         } else {
-        document.body.style.overflow = 'auto';
+            document.body.style.overflow = 'auto';
         }
 
         return () => {
-        document.body.style.overflow = 'auto';
+            document.body.style.overflow = 'auto';
         };
     }, [isSidebarOpen]);
+
+    const openSidebar = () => {
+        setIsSidebarOpen(prevState => !prevState);
+    };
   return (
     <>
-        <nav className="w-[90%] sticky top-5 backdrop-blur-md lg:max-w-300 lg:w-[60%] h-20 rounded-full pl-5 pr-5 lg:pl-20 lg:pr-15 mx-auto bg-white/65 z-20 flex text-center justify-between items-center">
+        <nav ref={navRef} className="w-[90%] sticky top-0 backdrop-blur-md lg:max-w-300 lg:w-[60%] h-20 rounded-full pl-5 pr-5 lg:pl-20 lg:pr-15 mx-auto bg-white/65 z-20 flex text-center justify-between items-center">
             <Link href={"/"} className={`${newsReader.className} text-xl flex z-100`}>Atelier Studio</Link>
             <ul className="hidden lg:flex flex-row gap-5">
                 <li><Link href={"/"}>Početna</Link></li>
@@ -36,9 +41,9 @@ const Navbar = () => {
                 <li><Link href={"/kontakt"}>Kontakt</Link></li>
             </ul>
             <Link href={"/kontakt"} className={`hidden lg:block pt-2 pb-2 pl-7 pr-7 rounded-full bg-[#E07A5F] text-white`}>Počni odmah</Link>
-            <button aria-label="Otvori meni" onClick={() => setIsSidebarOpen(prevState => !prevState)} className="lg:hidden flex z-100">{isSidebarOpen ? <X/> : <Menu/>}</button>
+            <button aria-label="Otvori meni" onClick={openSidebar} className="lg:hidden flex z-100">{isSidebarOpen ? <X/> : <Menu/>}</button>
         </nav>
-        <div className={`w-full h-full p-10 z-20 bg-white  ${isSidebarOpen ? "flex flex-col gap-10 z-30" : "hidden"}`}>
+        <div className={`fixed top-20 left-0 w-full p-10 z-20 bg-white ${isSidebarOpen ? "flex flex-col gap-10 z-30" : "hidden"}`}>
             <ul className="lg:hidden flex flex-col justify-center items-center w-full gap-5 text-black">
                 <li><Link href={"/"} className={`text-xl`}>Početna</Link></li>
                 <li><Link href={"/onama"} className={`text-xl`}>O nama</Link></li>
