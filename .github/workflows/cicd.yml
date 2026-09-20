@@ -1,0 +1,43 @@
+﻿name: CI/CD Automation
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      - name: Create .env
+        run: |
+          echo "${{ secrets.SHOP_UI_ENV }}" > .env
+
+      - name: Build Docker image
+        run: docker build -t matejadev/atelier-studio-ui:latest .
+
+      - name: Push Docker image
+        run: docker push matejadev/atelier-studio-ui:latest
+
+      - name: Deploy to Push
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: 22
+          script: |
+            docker stop atelier-studio-ui || true
+            docker rm atelier-studio-ui || true
+            docker rmi matejadev/atelier-studio-ui:latest || true
+            docker pull matejadev/atelier-studio-ui:latest
+            docker run -d --name atelier-studio-ui -p 3000:3000 --env-file .env.production matejadev/atelier-studio-ui
