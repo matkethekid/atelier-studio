@@ -18,10 +18,6 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
 
-      - name: Create .env
-        run: |
-          echo "${{ secrets.SHOP_UI_ENV }}" > .env
-
       - name: Build Docker image
         run: docker build -t matejadev/atelier-studio-ui:latest .
 
