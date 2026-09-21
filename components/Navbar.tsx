@@ -48,6 +48,7 @@ const Navbar = () => {
             <ul className="lg:hidden flex flex-col justify-center items-center w-full gap-5 text-black">
                 <li><Link href={"/"} className={`text-xl`}>Početna</Link></li>
                 <li><Link href={"/onama"} className={`text-xl`}>O nama</Link></li>
+                <li><Link href={"/resursi"}>Resursi</Link></li>
                 <li><Link href={"/kontakt"} className={`text-xl`}>Kontakt</Link></li>
             </ul>
             <Link href={"/kontakt"} className={`lg:hidden pt-2 pb-2 w-[80%] mx-auto text-center rounded-full bg-[#E07A5F] text-white`}>Počni odmah</Link>
