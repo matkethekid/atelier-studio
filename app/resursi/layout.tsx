@@ -25,10 +25,10 @@ export const viewport: Viewport = {
     themeColor: "#fafafa",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
+export default function ResourcesLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
     return (
-        <html lang="sr" suppressHydrationWarning>
-        <body suppressHydrationWarning>{children}</body>
-        </html>
+        <>
+            {children}
+        </>
     );
 }
