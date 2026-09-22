@@ -1,26 +1,41 @@
-﻿import { Badge } from "@/components/ui/badge";
+﻿"use server";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-import {
-    AudioLines,
     ArrowRight,
-    BookOpen,
-    Download,
-    FileText,
-    HardDrive,
-    Presentation,
     Sparkles,
 } from "lucide-react";
 import Link from "next/link";
+import { cacheLife, cacheTag } from "next/cache";
+import ResourcesCard from "@/components/ResourcesCard";
 
-export default function Resources() {
+interface Resource {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    size: number;
+    fileType: string;
+    language: string;
+}
+
+export default async function Resources() {
+    const fetchResources = async () => {
+        "use cache";
+        cacheTag("resources");
+        cacheLife("minutes");
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/downloads/all`);
+            const data = await res.json();
+            console.log(data.data);
+            return data.data;
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const resources = await fetchResources();
     return (
         <section className="px-10 py-16 lg:px-20 bg-white border-t border-zinc-100">
             <div className="mx-auto max-w-500">
@@ -46,111 +61,22 @@ export default function Resources() {
                 </div>
                 <div className="flex flex-wrap gap-x-10 gap-y-4 mb-10 border-y border-zinc-100 py-6">
                     <div>
-                        <p className="text-2xl font-bold text-zinc-900">50+</p>
+                        <p className="text-2xl font-bold text-zinc-900">{resources.length}+</p>
                         <p className="text-sm text-zinc-500">Resursa</p>
                     </div>
                     <div>
-                        <p className="text-2xl font-bold text-zinc-900">6</p>
+                        <p className="text-2xl font-bold text-zinc-900">5+</p>
                         <p className="text-sm text-zinc-500">Jezika</p>
                     </div>
                 </div>
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                    <Card className="flex flex-col border-zinc-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
-                            <CardHeader className="pb-4">
-                                <div className="flex items-start justify-between">
-                                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-red-100 text-red-600">
-                                        <FileText className="h-5 w-5" />
-                                    </div>
-                                    <Badge variant="secondary" className="font-medium">PDF</Badge>
-                                </div>
-                                <CardTitle className="mt-4 text-lg leading-snug text-zinc-900">Engleska gramatika od A do Š</CardTitle>
-                                <CardDescription className="leading-relaxed">Kompletan vodič kroz englesku gramatiku sa primerima, vežbama i rešenjima za sve nivoe.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-zinc-500">
-                                    <span className="flex items-center gap-1.5"><BookOpen className="h-4 w-4 text-zinc-400" /> Engleski</span>
-                                    <span className="flex items-center gap-1.5"><HardDrive className="h-4 w-4 text-zinc-400" /> 12.4 MB</span>
-                                </div>
-                            </CardContent>
-                            <CardFooter className="mt-auto flex items-center justify-between pt-4">
-                                <p className="text-2xl font-bold text-zinc-900">€9.99</p>
-                                <Button className="gap-2 cursor-pointer bg-[#E07A5F] hover:bg-[#c8674d]">
-                                    <Download className="h-4 w-4" /> Preuzmi
-                                </Button>
-                            </CardFooter>
-                    </Card>
-                    <Card className="flex flex-col border-zinc-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
-                            <CardHeader className="pb-4">
-                                <div className="flex items-start justify-between">
-                                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-red-100 text-red-600">
-                                        <FileText className="h-5 w-5" />
-                                    </div>
-                                    <Badge variant="secondary" className="font-medium">PDF</Badge>
-                                </div>
-                                <CardTitle className="mt-4 text-lg leading-snug text-zinc-900">Engleska gramatika od A do Š</CardTitle>
-                                <CardDescription className="leading-relaxed">Kompletan vodič kroz englesku gramatiku sa primerima, vežbama i rešenjima za sve nivoe.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-zinc-500">
-                                    <span className="flex items-center gap-1.5"><BookOpen className="h-4 w-4 text-zinc-400" /> Engleski</span>
-                                    <span className="flex items-center gap-1.5"><HardDrive className="h-4 w-4 text-zinc-400" /> 12.4 MB</span>
-                                </div>
-                            </CardContent>
-                            <CardFooter className="mt-auto flex items-center justify-between pt-4">
-                                <p className="text-2xl font-bold text-zinc-900">€9.99</p>
-                                <Button className="gap-2 cursor-pointer bg-[#E07A5F] hover:bg-[#c8674d]">
-                                    <Download className="h-4 w-4" /> Preuzmi
-                                </Button>
-                            </CardFooter>
-                    </Card>
-                    <Card className="flex flex-col border-zinc-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
-                        <CardHeader className="pb-4">
-                            <div className="flex items-start justify-between">
-                                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-orange-100 text-orange-600">
-                                    <Presentation className="h-5 w-5" />
-                                </div>
-                                <Badge variant="secondary" className="font-medium">PPTX</Badge>
+                    {
+                        resources.map((resource: Resource, index: number) => (
+                            <div key={index}>
+                                <ResourcesCard resource={resource}/>
                             </div>
-                            <CardTitle className="mt-4 text-lg leading-snug text-zinc-900">Nemačke prezentacije A1–B1</CardTitle>
-                            <CardDescription className="leading-relaxed">Set od 40 prezentacija za učenje nemačkog, idealno i za samostalno učenje.</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-zinc-500">
-                                <span className="flex items-center gap-1.5"><BookOpen className="h-4 w-4 text-zinc-400" /> Nemački</span>
-                                <span className="flex items-center gap-1.5"><HardDrive className="h-4 w-4 text-zinc-400" /> 24.1 MB</span>
-                            </div>
-                        </CardContent>
-                        <CardFooter className="mt-auto flex items-center justify-between pt-4">
-                            <p className="text-2xl font-bold text-zinc-900">€12.50</p>
-                            <Button className="gap-2 cursor-pointer bg-[#E07A5F] hover:bg-[#c8674d]">
-                                <Download className="h-4 w-4" /> Preuzmi
-                            </Button>
-                        </CardFooter>
-                    </Card>
-                    <Card className="flex flex-col border-zinc-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
-                        <CardHeader className="pb-4">
-                            <div className="flex items-start justify-between">
-                                <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-violet-100 text-violet-600">
-                                    <AudioLines className="h-5 w-5" />
-                                </div>
-                                <Badge variant="secondary" className="font-medium">MP3</Badge>
-                            </div>
-                            <CardTitle className="mt-4 text-lg leading-snug text-zinc-900">Francuski izgovor — audio vodič</CardTitle>
-                            <CardDescription className="leading-relaxed">Audio lekcije sa vežbama izgovora i kompletim transkriptima u prilogu.</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-zinc-500">
-                                <span className="flex items-center gap-1.5"><BookOpen className="h-4 w-4 text-zinc-400" /> Francuski</span>
-                                <span className="flex items-center gap-1.5"><HardDrive className="h-4 w-4 text-zinc-400" /> 45.3 MB</span>
-                            </div>
-                        </CardContent>
-                        <CardFooter className="mt-auto flex items-center justify-between pt-4">
-                            <p className="text-2xl font-bold text-zinc-900">€6.99</p>
-                            <Button className="gap-2 cursor-pointer bg-[#E07A5F] hover:bg-[#c8674d]">
-                                <Download className="h-4 w-4" /> Preuzmi
-                            </Button>
-                        </CardFooter>
-                    </Card>
+                        ))
+                    }
                 </div>
                 <div className="mt-10 text-center md:hidden">
                     <Link href="/resursi" className="inline-block w-full">

@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Navbar from "@/components/Navbar";
 import dynamic from "next/dynamic";
 import { Badge } from "@/components/ui/badge";
@@ -27,177 +27,119 @@ import {
     BookOpen,
     Download,
     FileText,
-    GraduationCap,
     HardDrive,
+    Inbox,
     Presentation,
     Search,
-    SearchX,
     Sparkles,
+    FileSpreadsheet,
+    FileArchive,
+    FileCode,
 } from "lucide-react";
+import { fetchResources } from "@/actions/downloads";
 
 const Footer = dynamic(() => import("@/components/Footer"), {
     ssr: true,
 });
 
-type ResourceType = "PDF" | "PPTX" | "MP3";
-
 interface Resource {
-    id: number;
-    title: string;
+    id: string;
+    name: string;
     description: string;
     price: number;
-    fileSize: string;
-    type: ResourceType;
-    language: string;
-    level: string;
+    size: number;
+    fileType: string;
+    fileName: string;
+    language: string | null;
+    createdAt: string;
 }
 
-const RESOURCES: Resource[] = [
-    {
-        id: 1,
-        title: "Engleska gramatika od A do Š",
-        description:
-            "Kompletan vodič kroz englesku gramatiku sa primerima, vežbama i rešenjima za sve nivoe.",
-        price: 9.99,
-        fileSize: "12.4 MB",
-        type: "PDF",
-        language: "Engleski",
-        level: "A1–B2",
-    },
-    {
-        id: 2,
-        title: "Španski za početnike — 30 lekcija",
-        description:
-            "Intenzivni kurs sa dijalozima, vokabularom i vežbama za svaku lekciju.",
-        price: 14.99,
-        fileSize: "8.7 MB",
-        type: "PDF",
-        language: "Španski",
-        level: "A1–A2",
-    },
-    {
-        id: 3,
-        title: "Nemačke prezentacije A1–B1",
-        description:
-            "Set od 40 prezentacija za učenje nemačkog, idealno i za samostalno učenje.",
-        price: 12.5,
-        fileSize: "24.1 MB",
-        type: "PPTX",
-        language: "Nemački",
-        level: "A1–B1",
-    },
-    {
-        id: 4,
-        title: "Italijanski glagoli i konjugacije",
-        description:
-            "Pregled svih glagolskih vremena sa tabelama konjugacija i vežbama za utvrđivanje.",
-        price: 7.99,
-        fileSize: "5.2 MB",
-        type: "PDF",
-        language: "Italijanski",
-        level: "A2–B1",
-    },
-    {
-        id: 5,
-        title: "Francuski izgovor — audio vodič",
-        description:
-            "Audio lekcije sa vežbama izgovora i kompletim transkriptima u prilogu.",
-        price: 6.99,
-        fileSize: "45.3 MB",
-        type: "MP3",
-        language: "Francuski",
-        level: "A1–A2",
-    },
-    {
-        id: 6,
-        title: "Business English prezentacije",
-        description:
-            "Profesionalne prezentacije za poslovni engleski: sastanci, mejlovi, pregovori.",
-        price: 19.99,
-        fileSize: "18.6 MB",
-        type: "PPTX",
-        language: "Engleski",
-        level: "B2–C1",
-    },
-    {
-        id: 7,
-        title: "500 idioma na engleskom",
-        description:
-            "Najčešći idiomi i fraze sa objašnjenjima i primerima upotrebe u kontekstu.",
-        price: 5.99,
-        fileSize: "3.8 MB",
-        type: "PDF",
-        language: "Engleski",
-        level: "B1–C1",
-    },
-    {
-        id: 8,
-        title: "Španska konverzacija — praktični vodič",
-        description:
-            "Vodič za svakodnevne razgovore sa dijalozima, korisnim frazama i savetima.",
-        price: 8.49,
-        fileSize: "6.1 MB",
-        type: "PDF",
-        language: "Španski",
-        level: "A2–B1",
-    },
-    {
-        id: 9,
-        title: "Nemački vokabular — 2000 reči",
-        description:
-            "Flashcard prezentacija sa 2000 najčešćih nemačkih reči, grupisanih po temama.",
-        price: 11.99,
-        fileSize: "15.2 MB",
-        type: "PPTX",
-        language: "Nemački",
-        level: "A1–B1",
-    },
-];
-
-const TYPE_STYLES: Record<ResourceType, string> = {
-    PDF: "bg-red-100 text-red-600",
-    PPTX: "bg-orange-100 text-orange-600",
-    MP3: "bg-violet-100 text-violet-600",
-};
-
-const TYPE_ICONS: Record<ResourceType, React.ElementType> = {
-    PDF: FileText,
-    PPTX: Presentation,
-    MP3: AudioLines,
-};
-
-const STATS = [
-    { value: "50+", label: "Resursa" },
-    { value: "6", label: "Jezika" },
-];
+function getFileDetails(mimeType: string) {
+    switch (mimeType) {
+        case "application/pdf":
+            return {
+                label: "PDF",
+                color: "bg-red-100 text-red-600",
+                icon: FileText,
+            };
+        case "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+        case "application/vnd.ms-powerpoint":
+            return {
+                label: "PPTX",
+                color: "bg-orange-100 text-orange-600",
+                icon: Presentation,
+            };
+        case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        case "application/msword":
+            return {
+                label: "WORD",
+                color: "bg-blue-100 text-blue-600",
+                icon: FileText,
+            };
+        case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+        case "application/vnd.ms-excel":
+            return {
+                label: "EXCEL",
+                color: "bg-green-100 text-green-600",
+                icon: FileSpreadsheet,
+            };
+        case "application/zip":
+        case "application/x-zip-compressed":
+            return {
+                label: "ZIP",
+                color: "bg-yellow-100 text-yellow-600",
+                icon: FileArchive,
+            };
+        default:
+            return {
+                label: "FAJL",
+                color: "bg-zinc-100 text-zinc-600",
+                icon: FileCode,
+            };
+    }
+}
 
 function Page() {
     const [query, setQuery] = useState("");
     const [typeFilter, setTypeFilter] = useState<string>("all");
+    const [resources, setResources] = useState<Resource[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function loadData() {
+            try {
+                const data = await fetchResources();
+                setResources(data);
+            } catch (error) {
+                console.error("Greška pri učitavanju resursa:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        loadData();
+    }, []);
 
     const filteredResources = useMemo(() => {
         const q = query.trim().toLowerCase();
-        return RESOURCES.filter((r) => {
+        return resources.filter((r) => {
+            const fileDetails = getFileDetails(r.fileType);
             const matchesQuery =
                 q === "" ||
-                r.title.toLowerCase().includes(q) ||
+                r.name.toLowerCase().includes(q) ||
                 r.description.toLowerCase().includes(q) ||
-                r.language.toLowerCase().includes(q);
-            const matchesType = typeFilter === "all" || r.type === typeFilter;
+                (r.language && r.language.toLowerCase().includes(q));
+
+            const matchesType = typeFilter === "all" || fileDetails.label === typeFilter;
             return matchesQuery && matchesType;
         });
-    }, [query, typeFilter]);
-
+    }, [query, typeFilter, resources]);
     return (
         <div className="w-full min-h-screen flex flex-col pt-5 bg-zinc-50">
             <Navbar />
             <main className="flex flex-1 flex-col">
                 <section className="px-4 pb-10 pt-12 sm:px-6 lg:px-8">
                     <div className="mx-auto max-w-6xl">
-                        <Badge
-                            variant="outline"
-                            className="mb-4 gap-1.5 rounded-full border-primary/20 bg-primary/5 px-3 py-1 text-primary"
-                        >
+                        <Badge variant="outline" className="mb-4 gap-1.5 rounded-full border-[#E07A5F]/20 bg-[#E07A5F]/5 px-3 py-1 text-[#E07A5F]">
                             <Sparkles className="h-3.5 w-3.5" />
                             Resursi za učenje
                         </Badge>
@@ -210,12 +152,14 @@ function Page() {
                             mobilnog ili računara.
                         </p>
                         <div className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
-                            {STATS.map((stat) => (
-                                <div key={stat.label}>
-                                    <p className="text-2xl font-bold text-zinc-900">{stat.value}</p>
-                                    <p className="text-sm text-zinc-500">{stat.label}</p>
-                                </div>
-                            ))}
+                            <div>
+                                <p className="text-2xl font-bold text-zinc-900">{resources.length}+</p>
+                                <p className="text-sm text-zinc-500">Resursa</p>
+                            </div>
+                            <div>
+                                <p className="text-2xl font-bold text-zinc-900">5+</p>
+                                <p className="text-sm text-zinc-500">Jezika</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -238,7 +182,8 @@ function Page() {
                                 <SelectItem value="all">Svi tipovi</SelectItem>
                                 <SelectItem value="PDF">PDF</SelectItem>
                                 <SelectItem value="PPTX">PPTX</SelectItem>
-                                <SelectItem value="MP3">MP3</SelectItem>
+                                <SelectItem value="WORD">WORD</SelectItem>
+                                <SelectItem value="ZIP">ZIP</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -246,12 +191,16 @@ function Page() {
                 <section className="px-4 pb-16 sm:px-6 lg:px-8">
                     <div className="mx-auto max-w-6xl">
                         <p className="mb-4 text-sm text-zinc-500">
-                            Prikazano {filteredResources.length} od {RESOURCES.length} resursa
+                            Prikazano {filteredResources.length} od {resources.length} resursa
                         </p>
-                        {filteredResources.length > 0 ? (
+                        {loading ? (
+                            <p className="text-center py-10 text-zinc-500">Učitavanje resursa...</p>
+                        ) : filteredResources.length > 0 ? (
                             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                                 {filteredResources.map((resource) => {
-                                    const Icon = TYPE_ICONS[resource.type];
+                                    const fileDetails = getFileDetails(resource.fileType);
+                                    const Icon = fileDetails.icon;
+
                                     return (
                                         <Card
                                             key={resource.id}
@@ -262,17 +211,17 @@ function Page() {
                                                     <div
                                                         className={cn(
                                                             "flex h-11 w-11 items-center justify-center rounded-lg",
-                                                            TYPE_STYLES[resource.type]
+                                                            fileDetails.color
                                                         )}
                                                     >
                                                         <Icon className="h-5 w-5" />
                                                     </div>
                                                     <Badge variant="secondary" className="font-medium">
-                                                        {resource.type}
+                                                        {fileDetails.label}
                                                     </Badge>
                                                 </div>
                                                 <CardTitle className="mt-4 text-lg leading-snug text-zinc-900">
-                                                    {resource.title}
+                                                    {resource.name}
                                                 </CardTitle>
                                                 <CardDescription className="leading-relaxed">
                                                     {resource.description}
@@ -280,13 +229,15 @@ function Page() {
                                             </CardHeader>
                                             <CardContent>
                                                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-zinc-500">
-                                                  <span className="flex items-center gap-1.5">
-                                                    <BookOpen className="h-4 w-4 text-zinc-400" />
-                                                      {resource.language}
-                                                  </span>
-                                                  <span className="flex items-center gap-1.5">
+                                                    {resource.language && (
+                                                        <span className="flex items-center gap-1.5">
+                                                        <BookOpen className="h-4 w-4 text-zinc-400" />
+                                                            {resource.language}
+                                                      </span>
+                                                    )}
+                                                    <span className="flex items-center gap-1.5">
                                                     <HardDrive className="h-4 w-4 text-zinc-400" />
-                                                        {resource.fileSize}
+                                                        {resource.size} MB
                                                   </span>
                                                 </div>
                                             </CardContent>
@@ -294,7 +245,7 @@ function Page() {
                                                 <p className="text-2xl font-bold text-zinc-900">
                                                     €{resource.price.toFixed(2)}
                                                 </p>
-                                                <Button className="gap-2 cursor-pointer">
+                                                <Button className="gap-2 cursor-pointer bg-[#E07A5F] hover:bg-[#c8674d]">
                                                     <Download className="h-4 w-4" />
                                                     Preuzmi
                                                 </Button>
@@ -305,7 +256,7 @@ function Page() {
                             </div>
                         ) : (
                             <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-zinc-300 bg-white py-16 text-center">
-                                <SearchX className="h-10 w-10 text-zinc-400" />
+                                <Inbox className="h-10 w-10 text-zinc-400" />
                                 <h3 className="mt-4 text-lg font-semibold text-zinc-900">
                                     Nema rezultata
                                 </h3>
