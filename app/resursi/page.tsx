@@ -37,6 +37,7 @@ import {
     FileCode,
 } from "lucide-react";
 import { fetchResources } from "@/actions/downloads";
+import ResourcesCard from "@/components/ResourcesCard";
 
 const Footer = dynamic(() => import("@/components/Footer"), {
     ssr: true,
@@ -50,7 +51,7 @@ interface Resource {
     size: number;
     fileType: string;
     fileName: string;
-    language: string | null;
+    language: string;
     createdAt: string;
 }
 
@@ -200,57 +201,8 @@ function Page() {
                                 {filteredResources.map((resource) => {
                                     const fileDetails = getFileDetails(resource.fileType);
                                     const Icon = fileDetails.icon;
-
                                     return (
-                                        <Card
-                                            key={resource.id}
-                                            className="flex flex-col border-zinc-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
-                                        >
-                                            <CardHeader className="pb-4">
-                                                <div className="flex items-start justify-between">
-                                                    <div
-                                                        className={cn(
-                                                            "flex h-11 w-11 items-center justify-center rounded-lg",
-                                                            fileDetails.color
-                                                        )}
-                                                    >
-                                                        <Icon className="h-5 w-5" />
-                                                    </div>
-                                                    <Badge variant="secondary" className="font-medium">
-                                                        {fileDetails.label}
-                                                    </Badge>
-                                                </div>
-                                                <CardTitle className="mt-4 text-lg leading-snug text-zinc-900">
-                                                    {resource.name}
-                                                </CardTitle>
-                                                <CardDescription className="leading-relaxed">
-                                                    {resource.description}
-                                                </CardDescription>
-                                            </CardHeader>
-                                            <CardContent>
-                                                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-zinc-500">
-                                                    {resource.language && (
-                                                        <span className="flex items-center gap-1.5">
-                                                        <BookOpen className="h-4 w-4 text-zinc-400" />
-                                                            {resource.language}
-                                                      </span>
-                                                    )}
-                                                    <span className="flex items-center gap-1.5">
-                                                    <HardDrive className="h-4 w-4 text-zinc-400" />
-                                                        {resource.size} MB
-                                                  </span>
-                                                </div>
-                                            </CardContent>
-                                            <CardFooter className="mt-auto flex items-center justify-between pt-4">
-                                                <p className="text-2xl font-bold text-zinc-900">
-                                                    €{resource.price.toFixed(2)}
-                                                </p>
-                                                <Button className="gap-2 cursor-pointer bg-[#E07A5F] hover:bg-[#c8674d]">
-                                                    <Download className="h-4 w-4" />
-                                                    Preuzmi
-                                                </Button>
-                                            </CardFooter>
-                                        </Card>
+                                        <ResourcesCard resource={resource} key={resource.id}/>
                                     );
                                 })}
                             </div>
