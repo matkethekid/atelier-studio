@@ -1,4 +1,7 @@
-﻿import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+﻿"use client";
+
+import { useState } from "react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import {
     BookOpen,
     Download,
@@ -7,10 +10,22 @@ import {
     FileSpreadsheet,
     FileText,
     HardDrive,
-    Presentation
+    Presentation,
+    ShoppingCart,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import {orderFreeDownload} from "@/actions/downloads";
+import toast, { Toaster } from "react-hot-toast";
 
 interface Resource {
     id: string;
@@ -73,31 +88,125 @@ function getFileDetails(mimeType: string) {
 
 function ResourcesCard({ resource }: Props) {
     const fileDetails = getFileDetails(resource.fileType);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [email, setEmail] = useState("");
+
+    const handleButtonClick = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleFreeDownload = async () => {
+        const res = await orderFreeDownload({ id: resource.id, customerEmail: email });
+        toast.success(res.message);
+        if (!res.success) {
+            toast.error("Došlo je do greške. Pokušajte ponovo.");
+        }
+        setIsModalOpen(false);
+        setEmail("");
+    };
+
+    const isPaid = resource.price > 0;
     return (
-        <Card className="flex flex-col border-zinc-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
-            <CardHeader className="pb-4">
-                <div className="flex items-start justify-between">
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-lg ${fileDetails.color}`}>
-                        {fileDetails.icon}
+        <>
+            <Toaster/>
+            <Card className="flex flex-col border-zinc-200 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
+                <CardHeader className="pb-4">
+                    <div className="flex items-start justify-between">
+                        <div className={`flex h-11 w-11 items-center justify-center rounded-lg ${fileDetails.color}`}>
+                            {fileDetails.icon}
+                        </div>
+                        <Badge variant="secondary" className="font-medium">{fileDetails.label}</Badge>
                     </div>
-                    <Badge variant="secondary" className="font-medium">{fileDetails.label}</Badge>
-                </div>
-                <CardTitle className="mt-4 text-lg leading-snug text-zinc-900">{resource.name}</CardTitle>
-                <CardDescription className="leading-relaxed">{resource.description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-zinc-500">
-                    <span className="flex items-center gap-1.5"><BookOpen className="h-4 w-4 text-zinc-400" /> Engleski</span>
-                    <span className="flex items-center gap-1.5"><HardDrive className="h-4 w-4 text-zinc-400" /> {resource.size} MB</span>
-                </div>
-            </CardContent>
-            <CardFooter className="mt-auto flex items-center justify-between pt-4">
-                <p className="text-2xl font-bold text-zinc-900">{resource.price}€</p>
-                <Button className="gap-2 cursor-pointer bg-[#E07A5F] hover:bg-[#c8674d]">
-                    <Download className="h-4 w-4" /> Preuzmi
-                </Button>
-            </CardFooter>
-        </Card>
+                    <CardTitle className="mt-4 text-lg leading-snug text-zinc-900">{resource.name}</CardTitle>
+                    <CardDescription className="leading-relaxed">{resource.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-zinc-500">
+                        <span className="flex items-center gap-1.5"><BookOpen className="h-4 w-4 text-zinc-400" /> Engleski</span>
+                        <span className="flex items-center gap-1.5"><HardDrive className="h-4 w-4 text-zinc-400" /> {resource.size} MB</span>
+                    </div>
+                </CardContent>
+                <CardFooter className="mt-auto flex items-center justify-between pt-4">
+                    <p className="text-2xl font-bold text-zinc-900">
+                        {isPaid ? `${resource.price}€` : "Besplatno"}
+                    </p>
+                    <Button
+                        onClick={handleButtonClick}
+                        className="gap-2 cursor-pointer bg-[#E07A5F] hover:bg-[#c8674d]"
+                    >
+                        {isPaid ? (
+                            <>
+                                <ShoppingCart className="h-4 w-4" /> Kupi
+                            </>
+                        ) : (
+                            <>
+                                <Download className="h-4 w-4" /> Preuzmi
+                            </>
+                        )}
+                    </Button>
+                </CardFooter>
+            </Card>
+            <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+                <DialogContent className="sm:max-w-md">
+                    {isPaid ? (
+                        <>
+                            <DialogHeader>
+                                <DialogTitle className="flex items-center gap-2">
+                                    Kontakt za kupovinu
+                                </DialogTitle>
+                                <DialogDescription>
+                                    Da biste završili kupovinu ovog materijala ({resource.price}€), molimo vas da nas kontaktirate putem poruke na sledeći broj telefona:
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="flex flex-col items-center justify-center py-6 space-y-2">
+                                <a
+                                    href="tel:+381638911642"
+                                    className="text-2xl font-bold text-zinc-900 hover:text-[#E07A5F] transition-colors"
+                                >
+                                    +381 63 891 1642
+                                </a>
+                                <p className="text-sm text-zinc-500 text-center">
+                                    Pošaljite SMS/WhatsApp poruku sa nazivom materijala koji želite da kupite. Nakon potvrde uplate, poslaćemo Vam link za preuzimanje.
+                                </p>
+                            </div>
+                            <DialogFooter>
+                                <Button variant="outline" onClick={() => setIsModalOpen(false)}>
+                                    Zatvori
+                                </Button>
+                            </DialogFooter>
+                        </>
+                    ) : (
+                        <>
+                            <DialogHeader>
+                                <DialogTitle className="flex items-center gap-2">
+                                    Besplatno preuzimanje
+                                </DialogTitle>
+                                <DialogDescription>
+                                    Unesite vašu email adresu kako bismo Vam poslali link za preuzimanje fajla.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <div className="flex items-center space-x-2 py-4">
+                                <Input
+                                    type="email"
+                                    placeholder="vas.email@primer.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+                            <DialogFooter className="sm:justify-start">
+                                <Button
+                                    type="button"
+                                    className="w-full gap-2 bg-[#E07A5F] hover:bg-[#c8674d]"
+                                    onClick={handleFreeDownload}
+                                >
+                                    <Download className="h-4 w-4" /> Pošalji link
+                                </Button>
+                            </DialogFooter>
+                        </>
+                    )}
+                </DialogContent>
+            </Dialog>
+        </>
     );
 }
 
